@@ -25,7 +25,6 @@ client
   .catch();
 
 
-
 // API endpoint to fetch all products
 app.get("/api/products", async (req, res) => {
   try {
