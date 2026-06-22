@@ -33,13 +33,23 @@ app.get(
   },
   async (req, res) => {
     const users = await client
-      .db("auth_next_db")
-      .collection("user")
+      .db("resellHubDB")
+      .collection("users")
       .find()
       .toArray();
     res.json(users);
   },
 );
+
+// Add a new user
+app.post("/api/users", async (req, res) => {
+  const user = req.body;
+  const result = await client
+    .db("resellHubDB")
+    .collection("users")
+    .insertOne(user);
+  res.send(result);
+});
 
 // Add a new user
 app.post("/api/job", async (req, res) => {
@@ -72,7 +82,7 @@ app.post("/api/company", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("You can access the server APIII");
+  res.send("Resell Hub Server is running");
 });
 
 app.listen(port, () => {
