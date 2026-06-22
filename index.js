@@ -24,12 +24,25 @@ client
   })
   .catch();
 
-app.get("/", (req, res) => {
-  res.send("You can access the server API");
+
+
+
+app.get("/api/products", async (req, res) => {
+  try {
+    const productsCollection = client.db("resellHubDB").collection("products");
+    const products = await productsCollection.find().toArray();
+    res.json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
 });
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
 
 module.exports = app;
