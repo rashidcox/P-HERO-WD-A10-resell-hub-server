@@ -24,6 +24,7 @@ client
   })
   .catch();
 
+
 app.get(
   "/api/users",
   (req, res, next) => {
@@ -41,25 +42,16 @@ app.get(
   },
 );
 
-// Add a new user
-app.post("/api/users", async (req, res) => {
-  const user = req.body;
-  const result = await client
-    .db("resellHubDB")
-    .collection("users")
-    .insertOne(user);
-  res.send(result);
-});
-
 // Get all products
 app.get("/api/products", async (req, res) => {
   const products = await client
-    .db("resellHubDB")
+    .db("resellHubDB") 
     .collection("products")
     .find()
     .toArray();
   res.json(products);
 });
+
 
 app.get("/", (req, res) => {
   res.send("Resell Hub Server is running");
