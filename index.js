@@ -51,34 +51,14 @@ app.post("/api/users", async (req, res) => {
   res.send(result);
 });
 
-// Add a new user
-app.post("/api/job", async (req, res) => {
-  const job = req.body;
-  const result = await await client
-    .db("auth_next_db")
-    .collection("Jobs")
-    .insertOne(job);
-  res.send(result);
-});
-
-// Get jobs
-app.get("/api/jobs", async (req, res) => {
-  const jobs = await client
-    .db("auth_next_db")
-    .collection("Jobs")
+// Get all products
+app.get("/api/products", async (req, res) => {
+  const products = await client
+    .db("resellHubDB")
+    .collection("products")
     .find()
     .toArray();
-  res.json(jobs);
-});
-
-// add company
-app.post("/api/company", async (req, res) => {
-  const company = req.body;
-  const result = await await client
-    .db("auth_next_db")
-    .collection("company")
-    .insertOne(company);
-  res.send(result);
+  res.json(products);
 });
 
 app.get("/", (req, res) => {
