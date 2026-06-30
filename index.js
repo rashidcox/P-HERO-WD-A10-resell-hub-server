@@ -52,6 +52,25 @@ app.get("/api/products", async (req, res) => {
   res.json(products);
 });
 
+// Post a new registration
+app.post("/api/register", async (req, res) => {
+  const { name, email, password } = req.body;
+  const user = { name, email, password };
+  const result = await client
+    .db("resellHubDB")
+    .collection("registations")
+    .insertOne(user);
+  res.json(result);
+});
+// Get all registrations
+app.get("/api/register", async (req, res) => {
+  const users = await client
+    .db("resellHubDB")
+    .collection("registations")
+    .find()
+    .toArray();
+  res.json(users);
+});
 
 app.get("/", (req, res) => {
   res.send("Resell Hub Server is running");
